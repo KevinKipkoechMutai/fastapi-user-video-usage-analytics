@@ -36,8 +36,8 @@ To set up the FastAPI application, follow these steps:
 
 To run the FastAPI application, use the following command:
 ```bash
-   uvicorn main:app --reload
-   ```
+uvicorn main:app --reload
+```
 
 Once the application is running, you can access the API documentation at `http://localhost:8000/docs`.
 
@@ -65,25 +65,28 @@ The response will be a JSON object containing:
   - `period`: The corresponding year or month for the data.
 
 #### Example Request
+```
 GET http://localhost:8000/analytics?group_ids=1,2&period=year
-
+```
 
 #### Example Response
+```json
 {
-"period": "year",
-"data": [
-{
-"group_name": "Group A",
-"watched_hours": 120.5,
-"period": "2023"
-},
-{
-"group_name": "Group B",
-"watched_hours": 95.0,
-"period": "2023"
+  "period": "year",
+  "data": [
+    {
+      "group_name": "Group A",
+      "watched_hours": 120.5,
+      "period": "2023"
+    },
+    {
+      "group_name": "Group B",
+      "watched_hours": 95.0,
+      "period": "2023"
+    }
+  ]
 }
-]
-}
+```
 
 ## License
 
