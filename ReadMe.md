@@ -21,7 +21,8 @@ To set up the FastAPI application, follow these steps:
 2. **Create a virtual environment (optional but recommended):**
    ```bash
    python3.9 -m venv venv
-   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+   source venv/bin/activate  # On Windows use `venv\Scripts\activate` 
+   cd src
    ```
 
 3. **Install the required dependencies:**
