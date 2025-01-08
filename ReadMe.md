@@ -89,6 +89,12 @@ GET http://localhost:8000/analytics?group_ids=1,2&period=year
 }
 ```
 
+## Run Docker Container
+Install Docker on your local machine, start it, and run 
+```
+docker compose up
+```
+
 ## License
 
 This project is licensed under the MIT License. 
