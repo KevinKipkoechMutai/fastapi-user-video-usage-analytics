@@ -22,7 +22,7 @@ router = APIRouter()
 def get_analytics(
     db: db_dependency,
     group_ids: Optional[List[int]] = Query(None),
-    period: str = Query("year", regex="^(year|month)$")  # Only allow "year"
+    period: str = Query("year", regex="^(year|month)$") 
 ):
     try:
         # create base query string to retrieve usergroup by group_name and join with useractivity via user_id foreign key
