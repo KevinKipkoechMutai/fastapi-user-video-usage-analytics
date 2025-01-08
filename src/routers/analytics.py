@@ -25,25 +25,26 @@ def get_analytics(
     period: str = Query("year", regex="^(year|month)$")  # Only allow "year"
 ):
     try:
+        # create base query string to retrieve usergroup by group_name and join with useractivity via user_id foreign key
         query = (
             db.query(
                 UserGroup.group_name,
                 func.sum(UserActivity.watched_seconds / 3600).label("watched_hours"),
-                func.strftime("%Y", UserActivity.report_date_yyyymmdd if period == "year" else "%Y-%m")
+                func.strftime("%Y-%m" if period == "month" else "%Y", UserActivity.report_date_yyyymmdd) 
             )
             .join(UserActivity, UserActivity.user_id == UserGroup.user_id)
         )
 
+        #pass optional group ids
         if group_ids:
             query = query.filter(UserGroup.group_id.in_(group_ids))
 
-        if period == "year":
-            query = query.group_by(UserGroup.group_name, func.strftime("%Y", UserActivity.report_date_yyyymmdd))
-        else:
-            query = query.group_by(UserGroup.group_name, func.strftime("%Y-%m", UserActivity.report_date_yyyymmdd))
+        query = query.group_by(UserGroup.group_name, func.strftime("%Y-%m" if period == "month" else "%Y", UserActivity.report_date_yyyymmdd))
 
+        #gather returned results
         results = query.all()
 
+        #format results
         data = [
             {
                 "group_name": row[0],
@@ -55,4 +56,5 @@ def get_analytics(
 
         return {"period": period, "data": data}
     finally:
+        #close database connection
         db.close()
